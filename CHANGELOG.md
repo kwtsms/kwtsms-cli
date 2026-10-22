@@ -5,6 +5,12 @@ All notable changes to kwtsms-cli will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Docs
+- Test mode: test messages are queued but not delivered. Their credits are held until you delete them from the Sending Queue in your kwtsms.com account (they were wrongly described as consuming no credits).
+- ERR028: Duplicate SMS protection is opt-in per account with a per-account window (10 seconds by default), not a fixed 15 seconds.
+
 ## [1.0.6] - 2026-10-29
 
 ### Changed

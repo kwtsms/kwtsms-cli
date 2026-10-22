@@ -157,7 +157,7 @@ kwtsms-cli send --to 96598765432 --message $'Order confirmed\nTracking: TRK-1234
 # Specify a sender ID
 kwtsms-cli send --to 96598765432 --message "Your order is ready" --sender MY-BRAND
 
-# Test mode: message is queued but not delivered, no credits consumed
+# Test mode: queued, not delivered; credits held until you delete it from the Sending Queue
 kwtsms-cli send --to 96598765432 --message "Test" --test
 ```
 
@@ -194,7 +194,7 @@ Estimated maximum recipients per platform (command-line argument size limit):
 | `-t, --to` | Yes | Recipient phone number(s), comma-separated. Duplicates removed automatically. |
 | `-m, --message` | Yes | Message text |
 | `-s, --sender` | No | Sender ID (overrides config default) |
-| `--test` | No | Queue without delivery, no credits used |
+| `--test` | No | Queued, not delivered; credits held until you delete it from the Sending Queue |
 
 ## Global Flags
 

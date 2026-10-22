@@ -105,7 +105,7 @@ kwtsms-cli send --to 96550000001,96550000002,...,96550000500 --message "Announce
 # Multi-line message
 kwtsms-cli send --to 96598765432 --message $'Line one\nLine two' --sender MY-SENDER
 
-# Test mode — queued but not delivered, no credits consumed
+# Test mode: queued, not delivered; credits held until you delete it from the Sending Queue
 kwtsms-cli send --to 96598765432 --message "Test" --sender MY-SENDER --test
 ```
 
@@ -136,7 +136,7 @@ fi
 
 ## Rules for Agents
 
-- **Always use `--test` during development.** Test messages are queued but never delivered and consume no credits. Set `test: 0` only when sending for real.
+- **Always use `--test` during development.** Test messages are queued but not delivered. Their credits are held until you delete them from the Sending Queue in your kwtsms.com account. Set `test: 0` only when sending for real.
 - **Never log or print credentials.** Do not echo `KWTSMS_PASSWORD` or pass it as a visible argument in logs.
 - **Phone number format:** digits only, international format, no `+` or `00` prefix. The tool normalises common formats automatically (`+965...`, `00965...`, spaces, dashes, Arabic-Indic digits).
 - **Sender ID:** must be pre-approved on the kwtSMS account. Use `kwtsms-cli senderid` to list available IDs. Max 11 characters: alphanumeric, hyphens, dots, spaces.
@@ -159,7 +159,7 @@ fi
 | ERR013 | Send queue full | Retry after a short wait |
 | ERR025 | Invalid number (non-digit chars) | Strip `+`, spaces, dashes |
 | ERR026 | No route for country | Contact kwtSMS to activate |
-| ERR028 | 15s minimum between sends to same number | Wait before resending |
+| ERR028 | Sent to the same number too soon. | Duplicate SMS protection is opt-in per account; wait for the account's window (10 seconds by default). The whole request was rejected and nothing was charged |
 
 ---
 
