@@ -28,7 +28,7 @@ const (
 	tlsTimeout     = 10 * time.Second
 )
 
-// UserAgent is set at build time via ldflags: -X github.com/boxlinknet/kwtsms-cli/internal/api.UserAgent=...
+// UserAgent is set at build time via ldflags: -X github.com/kwtsms/kwtsms-cli/internal/api.UserAgent=...
 // Defaults to "kwtsms-cli/dev" if not set.
 var UserAgent = "kwtsms-cli/dev"
 

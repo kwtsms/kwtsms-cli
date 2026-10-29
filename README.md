@@ -1,11 +1,11 @@
 # kwtsms-cli
 
-[![Release](https://img.shields.io/github/v/release/boxlinknet/kwtsms-cli)](https://github.com/boxlinknet/kwtsms-cli/releases/latest)
-[![Build](https://img.shields.io/github/actions/workflow/status/boxlinknet/kwtsms-cli/release.yml?label=build)](https://github.com/boxlinknet/kwtsms-cli/actions)
-[![Downloads](https://img.shields.io/github/downloads/boxlinknet/kwtsms-cli/total)](https://github.com/boxlinknet/kwtsms-cli/releases)
-[![Go Version](https://img.shields.io/github/go-mod/go-version/boxlinknet/kwtsms-cli)](https://go.dev)
-[![License](https://img.shields.io/github/license/boxlinknet/kwtsms-cli)](https://github.com/boxlinknet/kwtsms-cli/blob/main/LICENSE)
-[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-blue)](https://github.com/boxlinknet/kwtsms-cli/releases/latest)
+[![Release](https://img.shields.io/github/v/release/kwtsms/kwtsms-cli)](https://github.com/kwtsms/kwtsms-cli/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/kwtsms/kwtsms-cli/release.yml?label=build)](https://github.com/kwtsms/kwtsms-cli/actions)
+[![Downloads](https://img.shields.io/github/downloads/kwtsms/kwtsms-cli/total)](https://github.com/kwtsms/kwtsms-cli/releases)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/kwtsms/kwtsms-cli)](https://go.dev)
+[![License](https://img.shields.io/github/license/kwtsms/kwtsms-cli)](https://github.com/kwtsms/kwtsms-cli/blob/main/LICENSE)
+[![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-blue)](https://github.com/kwtsms/kwtsms-cli/releases/latest)
 
 A command-line interface for the [kwtSMS](https://www.kwtsms.com) SMS gateway. Send SMS messages, check your account balance, and manage sender IDs, all from your terminal or as part of an automated workflow.
 
@@ -31,23 +31,23 @@ Download the pre-built binary for your platform. No runtime required, just downl
 
 | Platform | Download |
 |---|---|
-| Linux x64 | [kwtsms-cli-linux-x64](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-x64) |
-| Linux ARM64 (Raspberry Pi 4/5) | [kwtsms-cli-linux-arm64](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-arm64) |
-| Linux ARMv7 (Raspberry Pi 2/3) | [kwtsms-cli-linux-armv7](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-armv7) |
-| macOS Intel | [kwtsms-cli-macos-x64](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-macos-x64) |
-| macOS Apple Silicon | [kwtsms-cli-macos-arm64](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-macos-arm64) |
-| Windows x64 | [kwtsms-cli-windows-x64.exe](https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-windows-x64.exe) |
+| Linux x64 | [kwtsms-cli-linux-x64](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-x64) |
+| Linux ARM64 (Raspberry Pi 4/5) | [kwtsms-cli-linux-arm64](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-arm64) |
+| Linux ARMv7 (Raspberry Pi 2/3) | [kwtsms-cli-linux-armv7](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-armv7) |
+| macOS Intel | [kwtsms-cli-macos-x64](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-macos-x64) |
+| macOS Apple Silicon | [kwtsms-cli-macos-arm64](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-macos-arm64) |
+| Windows x64 | [kwtsms-cli-windows-x64.exe](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-windows-x64.exe) |
 
 **Linux/macOS — install to PATH:**
 ```bash
-curl -Lo kwtsms-cli https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-x64
+curl -Lo kwtsms-cli https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-x64
 chmod +x kwtsms-cli
 sudo mv kwtsms-cli /usr/local/bin/
 ```
 
 **Raspberry Pi (ARMv7):**
 ```bash
-curl -Lo kwtsms-cli https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-armv7
+curl -Lo kwtsms-cli https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-armv7
 chmod +x kwtsms-cli
 sudo mv kwtsms-cli /usr/local/bin/
 ```
@@ -59,7 +59,7 @@ sudo mv kwtsms-cli /usr/local/bin/
 Requires only [Go](https://go.dev/dl/) installed. No other tools or system libraries needed.
 
 ```bash
-git clone https://github.com/boxlinknet/kwtsms-cli
+git clone https://github.com/kwtsms/kwtsms-cli
 cd kwtsms-cli
 go build -o kwtsms-cli .
 ```
@@ -317,7 +317,7 @@ fi
 ## Planned
 
 - **Homebrew formula:** `brew install kwtsms-cli` support for macOS.
-- **`go install` one-liner:** `go install github.com/boxlinknet/kwtsms-cli@latest` for Go developers.
+- **`go install` one-liner:** `go install github.com/kwtsms/kwtsms-cli@latest` for Go developers.
 - **File input for bulk send:** `--file numbers.txt` to load recipients from a file.
 - **`validate` command:** Check phone numbers against the API before sending.
 - **`status` command:** Look up a sent message by its ID.

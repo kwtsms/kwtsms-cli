@@ -12,10 +12,10 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
-	"github.com/boxlinknet/kwtsms-cli/internal/config"
-	"github.com/boxlinknet/kwtsms-cli/internal/output"
-	"github.com/boxlinknet/kwtsms-cli/internal/sanitize"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/config"
+	"github.com/kwtsms/kwtsms-cli/internal/output"
+	"github.com/kwtsms/kwtsms-cli/internal/sanitize"
 )
 
 // Credentials and settings resolved by PersistentPreRunE and used by all subcommands.
@@ -35,7 +35,7 @@ var (
 )
 
 // version is set at build time via ldflags:
-// -X github.com/boxlinknet/kwtsms-cli/cmd.version=v1.0.0
+// -X github.com/kwtsms/kwtsms-cli/cmd.version=v1.0.0
 var version = "dev"
 
 var rootCmd = &cobra.Command{

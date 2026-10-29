@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
 )
 
 func TestLogSend_EmptyPath(t *testing.T) {

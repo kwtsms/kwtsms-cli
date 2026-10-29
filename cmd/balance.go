@@ -6,8 +6,8 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
-	"github.com/boxlinknet/kwtsms-cli/internal/output"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/output"
 )
 
 var balanceCmd = &cobra.Command{

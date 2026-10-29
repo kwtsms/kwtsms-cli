@@ -12,10 +12,10 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
-	"github.com/boxlinknet/kwtsms-cli/internal/logger"
-	"github.com/boxlinknet/kwtsms-cli/internal/output"
-	"github.com/boxlinknet/kwtsms-cli/internal/sanitize"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/logger"
+	"github.com/kwtsms/kwtsms-cli/internal/output"
+	"github.com/kwtsms/kwtsms-cli/internal/sanitize"
 )
 
 const maxBatchSize = 200

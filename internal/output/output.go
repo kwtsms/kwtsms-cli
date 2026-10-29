@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
 )
 
 // PrintJSON pretty-prints any value as indented JSON to stdout.

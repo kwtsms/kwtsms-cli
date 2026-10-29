@@ -16,9 +16,9 @@ import (
 	"github.com/spf13/cobra"
 	"golang.org/x/term"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
-	"github.com/boxlinknet/kwtsms-cli/internal/config"
-	"github.com/boxlinknet/kwtsms-cli/internal/sanitize"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/config"
+	"github.com/kwtsms/kwtsms-cli/internal/sanitize"
 )
 
 var setupCmd = &cobra.Command{

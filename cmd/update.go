@@ -1,5 +1,5 @@
 // update.go - check for a newer kwtsms-cli release on GitHub.
-// Endpoint: https://api.github.com/repos/boxlinknet/kwtsms-cli/releases/latest
+// Endpoint: https://api.github.com/repos/kwtsms/kwtsms-cli/releases/latest
 // No credentials required.
 // Related files: internal/update/update.go, cmd/root.go
 package cmd
@@ -9,8 +9,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/output"
-	"github.com/boxlinknet/kwtsms-cli/internal/update"
+	"github.com/kwtsms/kwtsms-cli/internal/output"
+	"github.com/kwtsms/kwtsms-cli/internal/update"
 )
 
 var updateCmd = &cobra.Command{

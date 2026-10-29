@@ -47,7 +47,7 @@ jobs:
           GOARM: ${{ matrix.goarm }}
           CGO_ENABLED: 0
           ASSET_NAME: ${{ matrix.asset }}
-        run: go build -ldflags="-s -w -X github.com/boxlinknet/kwtsms-cli/cmd.version=${GITHUB_REF_NAME}" -o "$ASSET_NAME" .
+        run: go build -ldflags="-s -w -X github.com/kwtsms/kwtsms-cli/cmd.version=${GITHUB_REF_NAME}" -o "$ASSET_NAME" .
 
       - name: Upload artifact
         uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0

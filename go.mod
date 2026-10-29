@@ -1,4 +1,4 @@
-module github.com/boxlinknet/kwtsms-cli
+module github.com/kwtsms/kwtsms-cli
 
 go 1.25.5
 

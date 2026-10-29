@@ -12,7 +12,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
 )
 
 type entry struct {

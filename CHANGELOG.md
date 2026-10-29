@@ -5,6 +5,11 @@ All notable changes to kwtsms-cli will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.6] - 2026-10-29
+
+### Changed
+- The repository moved to the kwtSMS GitHub organization: github.com/kwtsms/kwtsms-cli. Module path, the self-update check and the download links now use the new address; old links keep working through GitHub's redirect.
+
 ## [1.0.0] - 2026-03-13
 
 ### Added

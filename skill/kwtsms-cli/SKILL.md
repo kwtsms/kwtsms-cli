@@ -29,12 +29,12 @@ case "$OS" in
     esac
     ;;
   *)
-    echo "Windows: download kwtsms-cli-windows-x64.exe from https://github.com/boxlinknet/kwtsms-cli/releases/latest"
+    echo "Windows: download kwtsms-cli-windows-x64.exe from https://github.com/kwtsms/kwtsms-cli/releases/latest"
     exit 1
     ;;
 esac
 
-curl -Lo kwtsms-cli "https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/$BINARY"
+curl -Lo kwtsms-cli "https://github.com/kwtsms/kwtsms-cli/releases/latest/download/$BINARY"
 chmod +x kwtsms-cli
 ```
 
@@ -165,7 +165,7 @@ fi
 
 ## Resources
 
-- Repository: [github.com/boxlinknet/kwtsms-cli](https://github.com/boxlinknet/kwtsms-cli)
-- Releases: [github.com/boxlinknet/kwtsms-cli/releases/latest](https://github.com/boxlinknet/kwtsms-cli/releases/latest)
+- Repository: [github.com/kwtsms/kwtsms-cli](https://github.com/kwtsms/kwtsms-cli)
+- Releases: [github.com/kwtsms/kwtsms-cli/releases/latest](https://github.com/kwtsms/kwtsms-cli/releases/latest)
 - kwtSMS dashboard: [www.kwtsms.com/login](https://www.kwtsms.com/login)
 - kwtSMS support: [www.kwtsms.com/support.html](https://www.kwtsms.com/support.html)

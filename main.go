@@ -3,7 +3,7 @@
 // Related files: cmd/root.go
 package main
 
-import "github.com/boxlinknet/kwtsms-cli/cmd"
+import "github.com/kwtsms/kwtsms-cli/cmd"
 
 func main() {
 	cmd.Execute()

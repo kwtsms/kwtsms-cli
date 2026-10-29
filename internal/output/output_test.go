@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/boxlinknet/kwtsms-cli/internal/api"
+	"github.com/kwtsms/kwtsms-cli/internal/api"
 )
 
 // captureStdout redirects os.Stdout during f() and returns what was printed.

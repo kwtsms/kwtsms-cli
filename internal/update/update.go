@@ -17,9 +17,9 @@ import (
 var semverRE = regexp.MustCompile(`^v?\d+\.\d+\.\d+$`)
 
 // releaseURL is a var so tests can override it with an httptest.Server URL.
-var releaseURL = "https://api.github.com/repos/boxlinknet/kwtsms-cli/releases/latest"
+var releaseURL = "https://api.github.com/repos/kwtsms/kwtsms-cli/releases/latest"
 
-const downloadBase = "https://github.com/boxlinknet/kwtsms-cli/releases/latest/download/"
+const downloadBase = "https://github.com/kwtsms/kwtsms-cli/releases/latest/download/"
 
 // Result holds the outcome of a version check.
 type Result struct {
@@ -103,7 +103,7 @@ func check(current string) (*Result, error) {
 		if binary := platformBinary(); binary != "" {
 			downloadURL = downloadBase + binary
 		} else {
-			downloadURL = "https://github.com/boxlinknet/kwtsms-cli/releases/latest"
+			downloadURL = "https://github.com/kwtsms/kwtsms-cli/releases/latest"
 		}
 	}
 
