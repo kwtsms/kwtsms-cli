@@ -10,14 +10,8 @@ func TestSanitizePhone(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		{"+96598765432", "96598765432", false},
-		{"0096598765432", "96598765432", false},
-		{"965 9876 5432", "96598765432", false},
-		{"965-9876-5432", "96598765432", false},
-		{"(965) 9876-5432", "96598765432", false},
-		{"٩٦٥٩٨٧٦٥٤٣٢", "96598765432", false},
-		{"۹۶۵۹۸۷۶۵۴۳۲", "96598765432", false},
-		{"96598765432", "96598765432", false},
+		// 2026-11-05 09:38 +03: Kuwait format variants moved to
+		// TestSanitizePhoneKuwaitVariants (number from KWTSMS_TEST_NUMBER), int-testnumber.
 		// local trunk prefix stripped: +966 055-XXX-XXXX → 96655XXXXXXX
 		{"+966 055 123 4567", "966551234567", false},
 		{"abc", "", true},
@@ -36,37 +30,88 @@ func TestSanitizePhone(t *testing.T) {
 	}
 }
 
-func TestSanitizePhones(t *testing.T) {
+// 2026-11-05 09:38 +03: Kuwait cases moved here from TestSanitizePhone; the
+// number comes from KWTSMS_TEST_NUMBER (testNumber, skips when unset) and its
+// format variants are built at runtime. Subtest names and failure messages
+// never contain the number. int-testnumber.
+func TestSanitizePhoneKuwaitVariants(t *testing.T) {
+	n := testNumber(t)
+	cc, a, b := splitKW(n)
 	tests := []struct {
-		input   string
-		want    []string
-		wantErr bool
+		name  string
+		input string
 	}{
-		{"96598765432,96541234567", []string{"96598765432", "96541234567"}, false},
-		// spaces within a token are stripped per-number, not treated as delimiters
-		{"965 9876 5432", []string{"96598765432"}, false},
-		{"+96598765432,+96541234567", []string{"96598765432", "96541234567"}, false},
-		{"96598765432\n96541234567", []string{"96598765432", "96541234567"}, false},
-		{"96598765432, 96541234567", []string{"96598765432", "96541234567"}, false},
-		// deduplication
-		{"96598765432,96598765432,96541234567", []string{"96598765432", "96541234567"}, false},
-		{"", nil, true},
-		{"abc", nil, true},
+		{"plus prefix", "+" + n},
+		{"00 prefix", "00" + n},
+		{"spaces", cc + " " + a + " " + b},
+		{"dashes", cc + "-" + a + "-" + b},
+		{"parens and dash", "(" + cc + ") " + a + "-" + b},
+		{"Arabic-Indic digits", toArabicIndic(n)},
+		{"Persian digits", toPersian(n)},
+		{"already clean", n},
 	}
 	for _, tt := range tests {
-		got, err := SanitizePhones(tt.input)
-		if (err != nil) != tt.wantErr {
-			t.Errorf("SanitizePhones(%q) error = %v, wantErr %v", tt.input, err, tt.wantErr)
-			continue
-		}
-		if len(got) != len(tt.want) {
-			t.Errorf("SanitizePhones(%q) = %v, want %v", tt.input, got, tt.want)
-			continue
-		}
-		for i := range got {
-			if got[i] != tt.want[i] {
-				t.Errorf("SanitizePhones(%q)[%d] = %q, want %q", tt.input, i, got[i], tt.want[i])
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := SanitizePhone(tt.input)
+			if err != nil {
+				t.Errorf("SanitizePhone(%s) returned an error", tt.name)
+				return
 			}
+			if got != n {
+				t.Errorf("SanitizePhone(%s) did not return the test number", tt.name)
+			}
+		})
+	}
+}
+
+// 2026-11-05 09:38 +03: the Kuwait number comes from KWTSMS_TEST_NUMBER (skips
+// when unset); the second number is a Saudi sample instead of a Kuwait one.
+// Error-only cases stay in TestSanitizePhonesInvalid so they run without the
+// env var. Failure messages never contain the numbers. int-testnumber.
+func TestSanitizePhones(t *testing.T) {
+	n := testNumber(t)
+	cc, a, b := splitKW(n)
+	const other = "966551234567"
+	tests := []struct {
+		name  string
+		input string
+		want  []string
+	}{
+		{"comma", n + "," + other, []string{n, other}},
+		// spaces within a token are stripped per-number, not treated as delimiters
+		{"spaces within token", cc + " " + a + " " + b, []string{n}},
+		{"plus prefixes", "+" + n + ",+" + other, []string{n, other}},
+		{"newline", n + "\n" + other, []string{n, other}},
+		{"comma and space", n + ", " + other, []string{n, other}},
+		// deduplication
+		{"dedupe", n + "," + n + "," + other, []string{n, other}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := SanitizePhones(tt.input)
+			if err != nil {
+				t.Errorf("SanitizePhones(%s) returned an error", tt.name)
+				return
+			}
+			if len(got) != len(tt.want) {
+				t.Errorf("SanitizePhones(%s) returned %d numbers, want %d", tt.name, len(got), len(tt.want))
+				return
+			}
+			for i := range got {
+				if got[i] != tt.want[i] {
+					t.Errorf("SanitizePhones(%s)[%d] is not the expected number", tt.name, i)
+				}
+			}
+		})
+	}
+}
+
+// 2026-11-05 09:38 +03: split from TestSanitizePhones so it runs without
+// KWTSMS_TEST_NUMBER, int-testnumber.
+func TestSanitizePhonesInvalid(t *testing.T) {
+	for _, in := range []string{"", "abc"} {
+		if _, err := SanitizePhones(in); err == nil {
+			t.Errorf("SanitizePhones(%q) error = nil, want error", in)
 		}
 	}
 }

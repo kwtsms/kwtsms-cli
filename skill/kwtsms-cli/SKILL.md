@@ -94,19 +94,19 @@ kwtsms-cli coverage
 ### Send SMS
 ```bash
 # Single recipient
-kwtsms-cli send --to 96598765432 --message "Your code is 4821" --sender MY-SENDER
+kwtsms-cli send --to 965XXXXXXXX --message "Your code is 4821" --sender MY-SENDER
 
 # Multiple recipients (comma-separated, duplicates removed automatically)
-kwtsms-cli send --to 96598765432,96512345678 --message "System alert" --sender MY-SENDER
+kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY --message "System alert" --sender MY-SENDER
 
 # Bulk send — any number of recipients, auto-batched at 200 per API call
-kwtsms-cli send --to 96550000001,96550000002,...,96550000500 --message "Announcement" --sender MY-SENDER
+kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY,965ZZZZZZZZ --message "Announcement" --sender MY-SENDER
 
 # Multi-line message
-kwtsms-cli send --to 96598765432 --message $'Line one\nLine two' --sender MY-SENDER
+kwtsms-cli send --to 965XXXXXXXX --message $'Line one\nLine two' --sender MY-SENDER
 
 # Test mode: queued, not delivered; credits held until you delete it from the Sending Queue
-kwtsms-cli send --to 96598765432 --message "Test" --sender MY-SENDER --test
+kwtsms-cli send --to 965XXXXXXXX --message "Test" --sender MY-SENDER --test
 ```
 
 Send output:
@@ -122,7 +122,7 @@ MsgID:      f4c841adee210f31307633ceaebff2ec
 All commands support `--json`:
 ```bash
 # Capture message ID after send
-result=$(kwtsms-cli send --to 96598765432 --message "Alert" --sender MY-SENDER --json)
+result=$(kwtsms-cli send --to 965XXXXXXXX --message "Alert" --sender MY-SENDER --json)
 msg_id=$(echo "$result" | jq -r '."msg-id"')
 
 # Check balance in a script

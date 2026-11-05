@@ -73,7 +73,7 @@ Works on any platform Go supports: Linux, macOS, Windows, and Raspberry Pi.
 kwtsms-cli setup
 
 # Step 2: send your first message
-kwtsms-cli send --to 96598765432 --message "Hello from kwtsms-cli"
+kwtsms-cli send --to 965XXXXXXXX --message "Hello from kwtsms-cli"
 
 # Check your balance
 kwtsms-cli balance
@@ -146,19 +146,19 @@ Send an SMS to one or more recipients.
 
 ```bash
 # Single recipient
-kwtsms-cli send --to 96598765432 --message "Your verification code is 4821"
+kwtsms-cli send --to 965XXXXXXXX --message "Your verification code is 4821"
 
 # Multiple recipients (comma-separated)
-kwtsms-cli send --to 96598765432,96512345678 --message "System maintenance tonight at 10pm"
+kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY --message "System maintenance tonight at 10pm"
 
 # Multi-line message — use $'...' in bash so \n becomes a real newline
-kwtsms-cli send --to 96598765432 --message $'Order confirmed\nTracking: TRK-12345\nExpected: Tomorrow'
+kwtsms-cli send --to 965XXXXXXXX --message $'Order confirmed\nTracking: TRK-12345\nExpected: Tomorrow'
 
 # Specify a sender ID
-kwtsms-cli send --to 96598765432 --message "Your order is ready" --sender MY-BRAND
+kwtsms-cli send --to 965XXXXXXXX --message "Your order is ready" --sender MY-BRAND
 
 # Test mode: queued, not delivered; credits held until you delete it from the Sending Queue
-kwtsms-cli send --to 96598765432 --message "Test" --test
+kwtsms-cli send --to 965XXXXXXXX --message "Test" --test
 ```
 
 ```
@@ -251,11 +251,11 @@ config file                    (lowest)
 All of the following formats are accepted. Numbers are automatically normalised before sending.
 
 ```
-+96598765432     accepted, + prefix stripped
-0096598765432    accepted, 00 prefix stripped
-965 9876 5432    accepted, spaces stripped
-965-9876-5432    accepted, dashes stripped
-96598765432      correct format
++965XXXXXXXX     accepted, + prefix stripped
+00965XXXXXXXX    accepted, 00 prefix stripped
++965 XXXX XXXX   accepted, spaces stripped
+965-XXXX-XXXX    accepted, dashes stripped
+965XXXXXXXX      correct format
 ```
 
 Arabic-Indic digits (`٩٦٥...`) are also accepted and converted automatically.
@@ -292,7 +292,7 @@ kwtsms-cli is built for use in automated environments. Pair `--json` with any co
 
 **Send and capture the message ID:**
 ```bash
-result=$(kwtsms-cli send --to 96598765432 --message "Alert: deploy complete" --json)
+result=$(kwtsms-cli send --to 965XXXXXXXX --message "Alert: deploy complete" --json)
 msg_id=$(echo "$result" | jq -r '."msg-id"')
 ```
 
@@ -307,7 +307,7 @@ fi
 **Use in a Makefile, cron job, or GitHub Actions workflow:**
 ```yaml
 - name: Notify team via SMS
-  run: kwtsms-cli send --to 96598765432 --message "Deploy complete: ${{ env.VERSION }}"
+  run: kwtsms-cli send --to 965XXXXXXXX --message "Deploy complete: ${{ env.VERSION }}"
   env:
     KWTSMS_USERNAME: ${{ secrets.KWTSMS_USERNAME }}
     KWTSMS_PASSWORD: ${{ secrets.KWTSMS_PASSWORD }}

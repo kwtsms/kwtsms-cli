@@ -7,6 +7,11 @@ import (
 	"testing"
 )
 
+// testNumberPlaceholder is the number passed to the mocked send endpoint; it is
+// only echoed in the request body, never validated, so a placeholder is enough.
+// 2026-11-05 09:39 +03: replaces a real-looking sample mobile, int-testnumber.
+const testNumberPlaceholder = "965XXXXXXXX"
+
 // serve returns an httptest.Server that responds with the given status code and JSON body.
 // It also sets baseURL to point at the test server and restores it on cleanup.
 func serve(t *testing.T, status int, body interface{}) *httptest.Server {
@@ -104,7 +109,7 @@ func TestSendSMS_OK(t *testing.T) {
 		"points-charged":  1,
 		"balance-after":   999,
 	})
-	resp, err := SendSMS("user", "pass", "MY-BRAND", "96598765432", "Hello", false)
+	resp, err := SendSMS("user", "pass", "MY-BRAND", testNumberPlaceholder, "Hello", false)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -133,7 +138,7 @@ func TestSendSMS_TestMode(t *testing.T) {
 	baseURL = srv.URL + "/"
 	t.Cleanup(func() { srv.Close(); baseURL = orig })
 
-	SendSMS("user", "pass", "MY-BRAND", "96598765432", "Hello", true)
+	SendSMS("user", "pass", "MY-BRAND", testNumberPlaceholder, "Hello", true)
 	if gotBody["test"] != "1" {
 		t.Errorf("test field = %v, want \"1\"", gotBody["test"])
 	}
@@ -145,7 +150,7 @@ func TestSendSMS_APIError(t *testing.T) {
 		"code":        "ERR010",
 		"description": "Zero balance.",
 	})
-	_, err := SendSMS("user", "pass", "MY-BRAND", "96598765432", "Hello", false)
+	_, err := SendSMS("user", "pass", "MY-BRAND", testNumberPlaceholder, "Hello", false)
 	if err == nil {
 		t.Fatal("expected error, got nil")
 	}
