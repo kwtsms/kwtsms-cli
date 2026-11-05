@@ -50,7 +50,7 @@ jobs:
         run: go build -ldflags="-s -w -X github.com/kwtsms/kwtsms-cli/cmd.version=${GITHUB_REF_NAME}" -o "$ASSET_NAME" .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ matrix.asset }}
           path: ${{ matrix.asset }}
