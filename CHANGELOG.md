@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+
+- `send --test` now ends with a line saying the message was queued on kwtSMS and not delivered (it used to look exactly like a real send).
+
+
+### Changed
 - README, agent skill and examples use the placeholder `965XXXXXXXX` instead of a sample mobile number; tests read the phone number from `KWTSMS_TEST_NUMBER` and skip the tests that need it when it is unset.
 - Package author and license holder are now kwtSMS.
 
