@@ -265,4 +265,3 @@ func SendSMS(username, password, sender, numbers, message string, test bool) (*S
 	}
 	return &resp, nil
 }
-

@@ -103,10 +103,10 @@ func loadCredentials() error {
 		return fmt.Errorf("no credentials found. Run 'kwtsms-cli setup' to configure")
 	}
 
-	Username      = u
-	Password      = p
+	Username = u
+	Password = p
 	DefaultSender = s
-	LogFile       = viper.GetString("log_file")
+	LogFile = viper.GetString("log_file")
 	return nil
 }
 

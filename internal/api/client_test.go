@@ -103,11 +103,11 @@ func TestGetSenderID_APIError(t *testing.T) {
 
 func TestSendSMS_OK(t *testing.T) {
 	serve(t, 200, map[string]interface{}{
-		"result":          "OK",
-		"msg-id":          "abc123",
-		"numbers":         1,
-		"points-charged":  1,
-		"balance-after":   999,
+		"result":         "OK",
+		"msg-id":         "abc123",
+		"numbers":        1,
+		"points-charged": 1,
+		"balance-after":  999,
 	})
 	resp, err := SendSMS("user", "pass", "MY-BRAND", testNumberPlaceholder, "Hello", false)
 	if err != nil {

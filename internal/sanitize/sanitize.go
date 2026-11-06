@@ -46,97 +46,97 @@ type phoneRule struct {
 // mobileStartDigits: valid first character(s) of the local number.
 var phoneRules = map[string]phoneRule{
 	// GCC
-	"965": {[]int{8}, []string{"4", "5", "6", "9"}},          // Kuwait: Virgin/STC,Zain,Ooredoo,Zain
-	"966": {[]int{9}, []string{"5"}},                          // Saudi Arabia
-	"971": {[]int{9}, []string{"5"}},                          // UAE
-	"973": {[]int{8}, []string{"3", "6"}},                     // Bahrain
-	"974": {[]int{8}, []string{"3", "5", "6", "7"}},           // Qatar
-	"968": {[]int{8}, []string{"7", "9"}},                     // Oman
+	"965": {[]int{8}, []string{"4", "5", "6", "9"}}, // Kuwait: Virgin/STC,Zain,Ooredoo,Zain
+	"966": {[]int{9}, []string{"5"}},                // Saudi Arabia
+	"971": {[]int{9}, []string{"5"}},                // UAE
+	"973": {[]int{8}, []string{"3", "6"}},           // Bahrain
+	"974": {[]int{8}, []string{"3", "5", "6", "7"}}, // Qatar
+	"968": {[]int{8}, []string{"7", "9"}},           // Oman
 	// Levant
-	"962": {[]int{9}, []string{"7"}},                          // Jordan
-	"961": {[]int{7, 8}, []string{"3", "7", "8"}},             // Lebanon
-	"970": {[]int{9}, []string{"5"}},                          // Palestine
-	"964": {[]int{10}, []string{"7"}},                         // Iraq
-	"963": {[]int{9}, []string{"9"}},                          // Syria
+	"962": {[]int{9}, []string{"7"}},              // Jordan
+	"961": {[]int{7, 8}, []string{"3", "7", "8"}}, // Lebanon
+	"970": {[]int{9}, []string{"5"}},              // Palestine
+	"964": {[]int{10}, []string{"7"}},             // Iraq
+	"963": {[]int{9}, []string{"9"}},              // Syria
 	// Other Arab
-	"967": {[]int{9}, []string{"7"}},                          // Yemen
-	"20":  {[]int{10}, []string{"1"}},                         // Egypt
-	"218": {[]int{9}, []string{"9"}},                          // Libya
-	"216": {[]int{8}, []string{"2", "4", "5", "9"}},           // Tunisia
-	"212": {[]int{9}, []string{"6", "7"}},                     // Morocco
-	"213": {[]int{9}, []string{"5", "6", "7"}},                // Algeria
-	"249": {[]int{9}, []string{"9"}},                          // Sudan
+	"967": {[]int{9}, []string{"7"}},                // Yemen
+	"20":  {[]int{10}, []string{"1"}},               // Egypt
+	"218": {[]int{9}, []string{"9"}},                // Libya
+	"216": {[]int{8}, []string{"2", "4", "5", "9"}}, // Tunisia
+	"212": {[]int{9}, []string{"6", "7"}},           // Morocco
+	"213": {[]int{9}, []string{"5", "6", "7"}},      // Algeria
+	"249": {[]int{9}, []string{"9"}},                // Sudan
 	// Non-Arab Middle East
-	"98":  {[]int{10}, []string{"9"}},                         // Iran
-	"90":  {[]int{10}, []string{"5"}},                         // Turkey
-	"972": {[]int{9}, []string{"5"}},                          // Israel
+	"98":  {[]int{10}, []string{"9"}}, // Iran
+	"90":  {[]int{10}, []string{"5"}}, // Turkey
+	"972": {[]int{9}, []string{"5"}},  // Israel
 	// South Asia
-	"91":  {[]int{10}, []string{"6", "7", "8", "9"}},          // India
-	"92":  {[]int{10}, []string{"3"}},                         // Pakistan
-	"880": {[]int{10}, []string{"1"}},                         // Bangladesh
-	"94":  {[]int{9}, []string{"7"}},                          // Sri Lanka
-	"960": {[]int{7}, []string{"7", "9"}},                     // Maldives
+	"91":  {[]int{10}, []string{"6", "7", "8", "9"}}, // India
+	"92":  {[]int{10}, []string{"3"}},                // Pakistan
+	"880": {[]int{10}, []string{"1"}},                // Bangladesh
+	"94":  {[]int{9}, []string{"7"}},                 // Sri Lanka
+	"960": {[]int{7}, []string{"7", "9"}},            // Maldives
 	// East Asia
-	"86":  {[]int{11}, []string{"1"}},                         // China
-	"81":  {[]int{10}, []string{"7", "8", "9"}},               // Japan
-	"82":  {[]int{10}, []string{"1"}},                         // South Korea
-	"886": {[]int{9}, []string{"9"}},                          // Taiwan
+	"86":  {[]int{11}, []string{"1"}},           // China
+	"81":  {[]int{10}, []string{"7", "8", "9"}}, // Japan
+	"82":  {[]int{10}, []string{"1"}},           // South Korea
+	"886": {[]int{9}, []string{"9"}},            // Taiwan
 	// Southeast Asia
-	"65":  {[]int{8}, []string{"8", "9"}},                     // Singapore
-	"60":  {[]int{9, 10}, []string{"1"}},                      // Malaysia
-	"62":  {[]int{9, 10, 11, 12}, []string{"8"}},              // Indonesia
-	"63":  {[]int{10}, []string{"9"}},                         // Philippines
-	"66":  {[]int{9}, []string{"6", "8", "9"}},                // Thailand
-	"84":  {[]int{9}, []string{"3", "5", "7", "8", "9"}},      // Vietnam
-	"95":  {[]int{9}, []string{"9"}},                          // Myanmar
-	"855": {[]int{8, 9}, []string{"1", "6", "7", "8", "9"}},   // Cambodia
-	"976": {[]int{8}, []string{"6", "8", "9"}},                // Mongolia
+	"65":  {[]int{8}, []string{"8", "9"}},                   // Singapore
+	"60":  {[]int{9, 10}, []string{"1"}},                    // Malaysia
+	"62":  {[]int{9, 10, 11, 12}, []string{"8"}},            // Indonesia
+	"63":  {[]int{10}, []string{"9"}},                       // Philippines
+	"66":  {[]int{9}, []string{"6", "8", "9"}},              // Thailand
+	"84":  {[]int{9}, []string{"3", "5", "7", "8", "9"}},    // Vietnam
+	"95":  {[]int{9}, []string{"9"}},                        // Myanmar
+	"855": {[]int{8, 9}, []string{"1", "6", "7", "8", "9"}}, // Cambodia
+	"976": {[]int{8}, []string{"6", "8", "9"}},              // Mongolia
 	// Europe
-	"44":  {[]int{10}, []string{"7"}},                         // UK
-	"33":  {[]int{9}, []string{"6", "7"}},                     // France
-	"49":  {[]int{10, 11}, []string{"1"}},                     // Germany
-	"39":  {[]int{10}, []string{"3"}},                         // Italy
-	"34":  {[]int{9}, []string{"6", "7"}},                     // Spain
-	"31":  {[]int{9}, []string{"6"}},                          // Netherlands
-	"32":  {[]int{9}, nil},                                     // Belgium
-	"41":  {[]int{9}, []string{"7"}},                          // Switzerland
-	"43":  {[]int{10}, []string{"6"}},                         // Austria
-	"47":  {[]int{8}, []string{"4", "9"}},                     // Norway
-	"48":  {[]int{9}, nil},                                     // Poland
-	"30":  {[]int{10}, []string{"6"}},                         // Greece
-	"420": {[]int{9}, []string{"6", "7"}},                     // Czech Republic
-	"46":  {[]int{9}, []string{"7"}},                          // Sweden
-	"45":  {[]int{8}, nil},                                     // Denmark
-	"40":  {[]int{9}, []string{"7"}},                          // Romania
-	"36":  {[]int{9}, nil},                                     // Hungary
-	"380": {[]int{9}, nil},                                     // Ukraine
+	"44":  {[]int{10}, []string{"7"}},     // UK
+	"33":  {[]int{9}, []string{"6", "7"}}, // France
+	"49":  {[]int{10, 11}, []string{"1"}}, // Germany
+	"39":  {[]int{10}, []string{"3"}},     // Italy
+	"34":  {[]int{9}, []string{"6", "7"}}, // Spain
+	"31":  {[]int{9}, []string{"6"}},      // Netherlands
+	"32":  {[]int{9}, nil},                // Belgium
+	"41":  {[]int{9}, []string{"7"}},      // Switzerland
+	"43":  {[]int{10}, []string{"6"}},     // Austria
+	"47":  {[]int{8}, []string{"4", "9"}}, // Norway
+	"48":  {[]int{9}, nil},                // Poland
+	"30":  {[]int{10}, []string{"6"}},     // Greece
+	"420": {[]int{9}, []string{"6", "7"}}, // Czech Republic
+	"46":  {[]int{9}, []string{"7"}},      // Sweden
+	"45":  {[]int{8}, nil},                // Denmark
+	"40":  {[]int{9}, []string{"7"}},      // Romania
+	"36":  {[]int{9}, nil},                // Hungary
+	"380": {[]int{9}, nil},                // Ukraine
 	// Americas
-	"1":   {[]int{10}, nil},                                    // USA/Canada
-	"52":  {[]int{10}, nil},                                    // Mexico
-	"55":  {[]int{11}, nil},                                    // Brazil
-	"57":  {[]int{10}, []string{"3"}},                         // Colombia
-	"54":  {[]int{10}, []string{"9"}},                         // Argentina
-	"56":  {[]int{9}, []string{"9"}},                          // Chile
-	"58":  {[]int{10}, []string{"4"}},                         // Venezuela
-	"51":  {[]int{9}, []string{"9"}},                          // Peru
-	"593": {[]int{9}, []string{"9"}},                          // Ecuador
-	"53":  {[]int{8}, []string{"5", "6"}},                     // Cuba
+	"1":   {[]int{10}, nil},               // USA/Canada
+	"52":  {[]int{10}, nil},               // Mexico
+	"55":  {[]int{11}, nil},               // Brazil
+	"57":  {[]int{10}, []string{"3"}},     // Colombia
+	"54":  {[]int{10}, []string{"9"}},     // Argentina
+	"56":  {[]int{9}, []string{"9"}},      // Chile
+	"58":  {[]int{10}, []string{"4"}},     // Venezuela
+	"51":  {[]int{9}, []string{"9"}},      // Peru
+	"593": {[]int{9}, []string{"9"}},      // Ecuador
+	"53":  {[]int{8}, []string{"5", "6"}}, // Cuba
 	// Africa
-	"27":  {[]int{9}, []string{"6", "7", "8"}},                // South Africa
-	"234": {[]int{10}, []string{"7", "8", "9"}},               // Nigeria
-	"254": {[]int{9}, []string{"1", "7"}},                     // Kenya
-	"233": {[]int{9}, []string{"2", "5"}},                     // Ghana
-	"251": {[]int{9}, []string{"7", "9"}},                     // Ethiopia
-	"255": {[]int{9}, []string{"6", "7"}},                     // Tanzania
-	"256": {[]int{9}, []string{"7"}},                          // Uganda
-	"237": {[]int{9}, []string{"6"}},                          // Cameroon
-	"225": {[]int{10}, nil},                                    // Ivory Coast
-	"221": {[]int{9}, []string{"7"}},                          // Senegal
-	"252": {[]int{9}, []string{"6", "7"}},                     // Somalia
-	"250": {[]int{9}, []string{"7"}},                          // Rwanda
+	"27":  {[]int{9}, []string{"6", "7", "8"}},  // South Africa
+	"234": {[]int{10}, []string{"7", "8", "9"}}, // Nigeria
+	"254": {[]int{9}, []string{"1", "7"}},       // Kenya
+	"233": {[]int{9}, []string{"2", "5"}},       // Ghana
+	"251": {[]int{9}, []string{"7", "9"}},       // Ethiopia
+	"255": {[]int{9}, []string{"6", "7"}},       // Tanzania
+	"256": {[]int{9}, []string{"7"}},            // Uganda
+	"237": {[]int{9}, []string{"6"}},            // Cameroon
+	"225": {[]int{10}, nil},                     // Ivory Coast
+	"221": {[]int{9}, []string{"7"}},            // Senegal
+	"252": {[]int{9}, []string{"6", "7"}},       // Somalia
+	"250": {[]int{9}, []string{"7"}},            // Rwanda
 	// Oceania
-	"61":  {[]int{9}, []string{"4"}},                          // Australia
-	"64":  {[]int{8, 9, 10}, []string{"2"}},                   // New Zealand
+	"61": {[]int{9}, []string{"4"}},        // Australia
+	"64": {[]int{8, 9, 10}, []string{"2"}}, // New Zealand
 }
 
 // countryNames maps country code to display name for error messages.
