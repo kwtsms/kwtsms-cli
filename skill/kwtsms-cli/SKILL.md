@@ -47,19 +47,19 @@ sudo mv kwtsms-cli /usr/local/bin/
 
 ## Step 2: Configure Credentials
 
-**Option A — Environment variables (recommended for agents):**
+**Option A: Environment variables (recommended for agents):**
 ```bash
 export KWTSMS_USERNAME=your_api_username
 export KWTSMS_PASSWORD=your_api_password
 export KWTSMS_SENDER=YOUR-SENDER
 ```
 
-**Option B — Interactive setup (for human-assisted configuration):**
+**Option B: Interactive setup (for human-assisted configuration):**
 ```bash
 kwtsms-cli setup
 ```
 
-**Option C — Inline flags (one-off calls):**
+**Option C: Inline flags (one-off calls):**
 ```bash
 kwtsms-cli balance --username myuser --password mypass
 ```
@@ -99,7 +99,7 @@ kwtsms-cli send --to 965XXXXXXXX --message "Your code is 4821" --sender MY-SENDE
 # Multiple recipients (comma-separated, duplicates removed automatically)
 kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY --message "System alert" --sender MY-SENDER
 
-# Bulk send — any number of recipients, auto-batched at 200 per API call
+# Bulk send: any number of recipients, auto-batched at 200 per API call
 kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY,965ZZZZZZZZ --message "Announcement" --sender MY-SENDER
 
 # Multi-line message

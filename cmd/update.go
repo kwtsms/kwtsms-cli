@@ -17,7 +17,7 @@ var updateCmd = &cobra.Command{
 	Use:   "version-check",
 	Short: "Check for a newer version of kwtsms-cli",
 	Long:  "Compares the installed version against the latest GitHub release and prints a notice if an update is available.",
-	// Override PersistentPreRunE — no credentials needed for this command.
+	// Override PersistentPreRunE: no credentials needed for this command.
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error { return nil },
 	RunE: func(cmd *cobra.Command, args []string) error {
 		result, err := update.CheckNow(version)

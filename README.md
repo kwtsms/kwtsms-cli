@@ -38,7 +38,7 @@ Download the pre-built binary for your platform. No runtime required, just downl
 | macOS Apple Silicon | [kwtsms-cli-macos-arm64](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-macos-arm64) |
 | Windows x64 | [kwtsms-cli-windows-x64.exe](https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-windows-x64.exe) |
 
-**Linux/macOS — install to PATH:**
+**Linux/macOS: install to PATH:**
 ```bash
 curl -Lo kwtsms-cli https://github.com/kwtsms/kwtsms-cli/releases/latest/download/kwtsms-cli-linux-x64
 chmod +x kwtsms-cli
@@ -151,7 +151,7 @@ kwtsms-cli send --to 965XXXXXXXX --message "Your verification code is 4821"
 # Multiple recipients (comma-separated)
 kwtsms-cli send --to 965XXXXXXXX,965YYYYYYYY --message "System maintenance tonight at 10pm"
 
-# Multi-line message — use $'...' in bash so \n becomes a real newline
+# Multi-line message: use $'...' in bash so \n becomes a real newline
 kwtsms-cli send --to 965XXXXXXXX --message $'Order confirmed\nTracking: TRK-12345\nExpected: Tomorrow'
 
 # Specify a sender ID

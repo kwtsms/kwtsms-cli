@@ -192,7 +192,7 @@ func findCountryCode(normalized string) string {
 func validatePhoneFormat(normalized string) error {
 	cc := findCountryCode(normalized)
 	if cc == "" {
-		return nil // no specific rule — generic E.164 length already checked
+		return nil // no specific rule: generic E.164 length already checked
 	}
 
 	rule := phoneRules[cc]

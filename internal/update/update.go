@@ -1,5 +1,5 @@
 // Package update checks for a newer kwtsms-cli release on GitHub.
-// All errors are silently discarded — a failed check is invisible to the user.
+// All errors are silently discarded: a failed check is invisible to the user.
 package update
 
 import (
