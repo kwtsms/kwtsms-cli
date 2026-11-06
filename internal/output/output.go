@@ -133,6 +133,13 @@ func PrintSendResults(responses []*api.SendResponse) {
 	}
 }
 
+// PrintTestModeNote tells the user a --test send was queued but not delivered.
+// 2026-11-06 14:07 +03: a --test send printed "Sent" exactly like a real one; this line goes after the 5-line block so
+// scripts that read the first line keep working (cli-test-label).
+func PrintTestModeNote() {
+	fmt.Println("Test mode: queued on kwtSMS, not delivered. Delete it from your kwtSMS sending queue to release the credits.")
+}
+
 // PrintError prints an error message to stderr.
 func PrintError(err error) {
 	fmt.Fprintf(os.Stderr, "Error: %s\n", err.Error())

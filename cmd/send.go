@@ -85,6 +85,10 @@ func runSend() error {
 		return output.PrintJSON(responses)
 	}
 	output.PrintSendResults(responses)
+	// 2026-11-06 14:07 +03: say so when nothing was delivered (cli-test-label).
+	if sendTest {
+		output.PrintTestModeNote()
+	}
 	return nil
 }
 

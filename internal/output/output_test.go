@@ -136,3 +136,11 @@ func TestPrintError(t *testing.T) {
 		t.Errorf("stderr missing error message: %q", buf.String())
 	}
 }
+
+// 2026-11-06 14:07 +03: the test-mode note says nothing was delivered (cli-test-label).
+func TestPrintTestModeNote(t *testing.T) {
+	out := captureStdout(t, PrintTestModeNote)
+	if !strings.Contains(out, "Test mode") || !strings.Contains(out, "not delivered") {
+		t.Errorf("test-mode note missing: %q", out)
+	}
+}
