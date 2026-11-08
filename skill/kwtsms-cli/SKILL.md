@@ -1,3 +1,8 @@
+---
+name: kwtsms-cli
+description: Send SMS and check balance, Sender IDs and coverage through the kwtSMS gateway (Kuwait) with the kwtsms-cli command-line tool. Use when a task needs to send an SMS or OTP from a shell, script or CI job, check kwtSMS credits, or list Sender IDs or coverage, and kwtsms-cli is installed or can be downloaded.
+---
+
 # kwtsms-cli Skill
 
 Use this skill when you need to send SMS messages, check account balance, list sender IDs, or check coverage via the kwtSMS gateway using the `kwtsms-cli` binary.
@@ -169,3 +174,4 @@ fi
 - Releases: [github.com/kwtsms/kwtsms-cli/releases/latest](https://github.com/kwtsms/kwtsms-cli/releases/latest)
 - kwtSMS dashboard: [www.kwtsms.com/login](https://www.kwtsms.com/login)
 - kwtSMS support: [www.kwtsms.com/support.html](https://www.kwtsms.com/support.html)
+- For AI assistants and code editors that support MCP: the [kwtSMS MCP server](https://github.com/kwtsms/kwtsms-mcp) gives the same actions as tools, with preview and test mode by default
