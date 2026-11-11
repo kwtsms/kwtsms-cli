@@ -11,40 +11,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `send --test` now ends with a line saying the message was queued on kwtSMS and not delivered (it used to look exactly like a real send).
-
-
-### Changed
-- README, agent skill and examples use the placeholder `965XXXXXXXX` instead of a sample mobile number; tests read the phone number from `KWTSMS_TEST_NUMBER` and skip the tests that need it when it is unset.
+- `send --test` now says the message was queued and not delivered.
 - Package author and license holder are now kwtSMS.
-
-### Docs
-- Test mode: test messages are queued but not delivered. Their credits are held until you delete them from the Sending Queue in your kwtsms.com account (they were wrongly described as consuming no credits).
-- ERR028: Duplicate SMS protection is opt-in per account with a per-account window (10 seconds by default), not a fixed 15 seconds.
 
 ## [1.0.6] - 2026-10-29
 
 ### Changed
-- The repository moved to the kwtSMS GitHub organization: github.com/kwtsms/kwtsms-cli. Module path, the self-update check and the download links now use the new address; old links keep working through GitHub's redirect.
+- The repository moved to the kwtSMS GitHub organization.
 
 ## [1.0.0] - 2026-03-13
 
 ### Added
 - Initial release of kwtsms-cli
 - Commands: `setup`, `balance`, `senderid`, `coverage`, `send`
-- Pre-built binaries for Linux x64, ARM64, ARMv7, macOS Intel, macOS Apple Silicon, Windows x64
-- Compile from source with plain `go build`, no CGO, no external dependencies
-- Interactive setup wizard with credential verification and sender ID selection
-- Config file at platform-appropriate location (`~/.config/kwtsms-cli/kwtsms-cli.toml`)
-- Environment variable overrides: `KWTSMS_USERNAME`, `KWTSMS_PASSWORD`, `KWTSMS_SENDER`
-- Inline flag overrides: `--username`, `--password`
-- JSON output mode via `--json` flag on all commands
-- Test mode via `--test` flag on send (queued, not delivered, no credits consumed)
-- Bulk send: any number of recipients, auto-batched at 200 per API call with 500ms delay
-- Duplicate phone number removal
-- Append-only JSON send log, configured during setup
-- Input sanitization: phone numbers, message text, sender IDs, config values
-- Arabic-Indic digit conversion for phone numbers
-- Phone number normalisation: strips `+`, `00` prefix, spaces, dashes
-- Network error messages with no internal details exposed
+- Pre-built binaries for Linux, macOS and Windows
+- Interactive setup wizard
+- Environment variable and flag overrides
+- JSON output mode via `--json`
+- Test mode via `--test`
+- Bulk send
+- Send log
+- Arabic-Indic digit conversion and phone number normalisation
 - `--version` flag
