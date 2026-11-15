@@ -205,3 +205,85 @@ func TestUserAgentHeader(t *testing.T) {
 		t.Errorf("User-Agent = %q, want kwtsms-cli/test", gotUA)
 	}
 }
+
+// 2026-11-16 01:34 +03: tests for validate, status, dlr with the httptest fake server, no network (task int-cli-review).
+func TestValidateNumbers_OK(t *testing.T) {
+	var got map[string]string
+	srv := serve(t, 200, map[string]interface{}{
+		"result": "OK",
+		"mobile": map[string]interface{}{"OK": []string{"965XXXXXXXX"}, "ER": []string{"+965XXXXXXXX"}, "NR": []string{}},
+	})
+	srv.Config.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/validate/" {
+			t.Errorf("path = %q, want /validate/", r.URL.Path)
+		}
+		json.NewDecoder(r.Body).Decode(&got)
+		w.Write([]byte(`{"result":"OK","mobile":{"OK":["965XXXXXXXX"],"ER":["+965XXXXXXXX"],"NR":[]}}`))
+	})
+	resp, err := ValidateNumbers("user", "pass", "965XXXXXXXX,+965XXXXXXXX")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got["mobile"] != "965XXXXXXXX,+965XXXXXXXX" {
+		t.Errorf("mobile sent = %q", got["mobile"])
+	}
+	if len(resp.Mobile.OK) != 1 || len(resp.Mobile.ER) != 1 || resp.Mobile.NR == nil || len(resp.Mobile.NR) != 0 {
+		t.Errorf("unexpected buckets: %+v", resp.Mobile)
+	}
+}
+
+func TestValidateNumbers_APIError(t *testing.T) {
+	serve(t, 200, map[string]interface{}{"result": "ERROR", "code": "ERR002", "description": "Missing parameter."})
+	_, err := ValidateNumbers("user", "pass", "965XXXXXXXX")
+	if err == nil || err.Error() != "[ERR002] Missing parameter." {
+		t.Errorf("error = %v", err)
+	}
+}
+
+func TestGetStatus_OK(t *testing.T) {
+	serve(t, 200, map[string]interface{}{"result": "OK", "status": "sent", "description": "Message successfully sent to gateway"})
+	resp, err := GetStatus("user", "pass", "f4c841adee210f31307633ceaebff2ec")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if resp.Status != "sent" || resp.Description != "Message successfully sent to gateway" {
+		t.Errorf("unexpected response: %+v", resp)
+	}
+}
+
+func TestGetStatus_Error404KeepsCode(t *testing.T) {
+	serve(t, 404, map[string]interface{}{"result": "ERROR", "code": "ERR029", "description": "Message does not exist or msgid is wrong."})
+	_, err := GetStatus("user", "pass", "abc")
+	if err == nil || err.Error() != "[ERR029] Message does not exist or msgid is wrong." {
+		t.Errorf("error = %v", err)
+	}
+}
+
+func TestGetDLR_OK(t *testing.T) {
+	serve(t, 200, map[string]interface{}{
+		"result": "OK",
+		"report": []map[string]string{{"Number": "965XXXXXXXX", "Status": "Received by recipient"}},
+	})
+	resp, err := GetDLR("user", "pass", "f4c841adee210f31307633ceaebff2ec")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(resp.Report) != 1 || resp.Report[0].Number != "965XXXXXXXX" || resp.Report[0].Status != "Received by recipient" {
+		t.Errorf("unexpected report: %+v", resp.Report)
+	}
+}
+
+func TestGetDLR_Error400KeepsCode(t *testing.T) {
+	serve(t, 400, map[string]interface{}{"result": "ERROR", "code": "ERR019", "description": "No reports found."})
+	_, err := GetDLR("user", "pass", "abc")
+	if err == nil || err.Error() != "[ERR019] No reports found." {
+		t.Errorf("error = %v", err)
+	}
+}
+
+func TestGetDLR_HTTPErrorNoBody(t *testing.T) {
+	serve(t, 500, map[string]interface{}{})
+	if _, err := GetDLR("user", "pass", "abc"); err == nil {
+		t.Fatal("expected error on HTTP 500")
+	}
+}

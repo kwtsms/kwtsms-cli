@@ -399,3 +399,20 @@ func SanitizeConfigValue(input string) (string, error) {
 	}
 	return s, nil
 }
+
+// 2026-11-16 01:34 +03: SanitizeMsgID validates a msg-id for status and dlr: alphanumeric, 1 to 32 chars per the API docs (task int-cli-review).
+func SanitizeMsgID(input string) (string, error) {
+	id := strings.TrimSpace(input)
+	if id == "" {
+		return "", fmt.Errorf("msg-id is empty")
+	}
+	if len(id) > 32 {
+		return "", fmt.Errorf("msg-id too long (max 32 characters)")
+	}
+	for _, r := range id {
+		if !((r >= '0' && r <= '9') || (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z')) {
+			return "", fmt.Errorf("msg-id must be alphanumeric")
+		}
+	}
+	return id, nil
+}

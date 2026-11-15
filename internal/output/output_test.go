@@ -144,3 +144,31 @@ func TestPrintTestModeNote(t *testing.T) {
 		t.Errorf("test-mode note missing: %q", out)
 	}
 }
+
+// 2026-11-16 01:34 +03: tests for validate, status, dlr output (task int-cli-review).
+func TestPrintValidate(t *testing.T) {
+	resp := &api.ValidateResponse{}
+	resp.Mobile.OK = []string{"965XXXXXXXX"}
+	resp.Mobile.ER = []string{"+965XXXXXXXX"}
+	out := captureStdout(t, func() { PrintValidate(resp) })
+	want := "Valid (OK): 1\n  965XXXXXXXX\nInvalid format (ER): 1\n  +965XXXXXXXX\nNo route (NR): 0\n"
+	if out != want {
+		t.Errorf("got %q, want %q", out, want)
+	}
+}
+
+func TestPrintStatus(t *testing.T) {
+	out := captureStdout(t, func() { PrintStatus(&api.StatusResponse{Status: "sent", Description: "ok"}) })
+	if out != "Status:      sent\nDescription: ok\n" {
+		t.Errorf("got %q", out)
+	}
+}
+
+func TestPrintDLR(t *testing.T) {
+	out := captureStdout(t, func() {
+		PrintDLR(&api.DLRResponse{Report: []api.DLRReport{{Number: "965XXXXXXXX", Status: "Received by recipient"}}})
+	})
+	if out != "965XXXXXXXX  Received by recipient\n" {
+		t.Errorf("got %q", out)
+	}
+}

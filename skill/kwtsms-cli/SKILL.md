@@ -1,6 +1,6 @@
 ---
 name: kwtsms-cli
-description: Send SMS and check balance, Sender IDs and coverage through the kwtSMS gateway (Kuwait) with the kwtsms-cli command-line tool. Use when a task needs to send an SMS or OTP from a shell, script or CI job, check kwtSMS credits, or list Sender IDs or coverage, and kwtsms-cli is installed or can be downloaded.
+description: Send SMS and check balance, Sender IDs, coverage, number validity, message status and delivery reports through the kwtSMS gateway (Kuwait) with the kwtsms-cli command-line tool. Use when a task needs to send an SMS or OTP from a shell, script or CI job, check kwtSMS credits, or list Sender IDs or coverage, and kwtsms-cli is installed or can be downloaded.
 ---
 
 # kwtsms-cli Skill
@@ -96,6 +96,17 @@ kwtsms-cli senderid
 kwtsms-cli coverage
 ```
 
+### Validate numbers (no send, no credits)
+```bash
+kwtsms-cli validate -t 965XXXXXXXX,965YYYYYYYY --json   # buckets OK, ER (format), NR (no route)
+```
+
+### Message status and delivery reports
+```bash
+kwtsms-cli status <msg-id>   # queue status: pending / error in queue / sent to gateway
+kwtsms-cli dlr <msg-id>      # per-number delivery report; international numbers only, wait 5+ minutes
+```
+
 ### Send SMS
 ```bash
 # Single recipient
@@ -145,6 +156,7 @@ fi
 - **Never log or print credentials.** Do not echo `KWTSMS_PASSWORD` or pass it as a visible argument in logs.
 - **Phone number format:** digits only, international format, no `+` or `00` prefix. The tool normalises common formats automatically (`+965...`, `00965...`, spaces, dashes, Arabic-Indic digits).
 - **Sender ID:** must be pre-approved on the kwtSMS account. Use `kwtsms-cli senderid` to list available IDs. Max 11 characters: alphanumeric, hyphens, dots, spaces.
+- **Delivery reports:** `dlr` works for international numbers only (Kuwait numbers return none); wait 5+ minutes after sending and never poll in a tight loop.
 - **Bulk send:** batches >200 are split automatically. No action needed.
 - **Bulk JSON output:** single batch returns a JSON object, multiple batches return a JSON array.
 - **Delete test messages** from the kwtSMS queue after testing to recover any held credits.

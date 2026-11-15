@@ -140,6 +140,53 @@ kwtsms-cli coverage
 kwtsms-cli coverage --json
 ```
 
+### `kwtsms-cli validate`
+
+<!-- 2026-11-16 01:34 +03: new command section, task int-cli-review -->
+Check numbers for format and route before sending. Nothing is sent and no credits are used. Up to 2500 numbers per call.
+
+```bash
+kwtsms-cli validate -t 965XXXXXXXX,965YYYYYYYY
+kwtsms-cli validate -t 965XXXXXXXX --json
+```
+
+```
+Valid (OK): 1
+  965XXXXXXXX
+Invalid format (ER): 0
+No route (NR): 1
+  965YYYYYYYY
+```
+
+OK = valid and routable, ER = format error, NR = no route (country not activated on your account).
+
+### `kwtsms-cli status`
+
+Show the queue status of a sent message by its msg-id (from the `send` output). This is the queue status (pending, error in queue, or sent to the gateway), not a delivery report.
+
+```bash
+kwtsms-cli status f4c841adee210f31307633ceaebff2ec
+kwtsms-cli status f4c841adee210f31307633ceaebff2ec --json
+```
+
+```
+Status:      sent
+Description: Message successfully sent to gateway
+```
+
+### `kwtsms-cli dlr`
+
+Show per-number delivery reports for a sent message. Delivery reports exist for international numbers only: Kuwait numbers do not return them. Wait at least 5 minutes after sending, and add a delay between calls if you poll in bulk, or your IP may be blocked.
+
+```bash
+kwtsms-cli dlr f4c841adee210f31307633ceaebff2ec
+kwtsms-cli dlr f4c841adee210f31307633ceaebff2ec --json
+```
+
+```
+965XXXXXXXX  Received by recipient
+```
+
 ### `kwtsms-cli send`
 
 Send an SMS to one or more recipients.
@@ -319,8 +366,6 @@ fi
 - **Homebrew formula:** `brew install kwtsms-cli` support for macOS.
 - **`go install` one-liner:** `go install github.com/kwtsms/kwtsms-cli@latest` for Go developers.
 - **File input for bulk send:** `--file numbers.txt` to load recipients from a file.
-- **`validate` command:** Check phone numbers against the API before sending.
-- **`status` command:** Look up a sent message by its ID.
 
 ## FAQ
 

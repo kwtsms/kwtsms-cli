@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `validate -t <numbers>`: check numbers for format and route before sending (OK, ER, NR buckets).
+- `status <msg-id>`: show the queue status of a sent message.
+- `dlr <msg-id>`: show per-number delivery reports (international numbers only).
+
+### Fixed
+
+- API errors returned with an HTTP 4xx status now show their ERR code and description.
+
 ## [1.0.7] - 2026-11-07
 
 ### Changed

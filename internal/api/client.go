@@ -148,6 +148,15 @@ func post(endpoint string, body interface{}) ([]byte, error) {
 	}
 
 	if resp.StatusCode != http.StatusOK {
+		// 2026-11-16 01:34 +03: the API returns HTTP 4xx with a JSON error body (ERR019, ERR020, ERR029 ...);
+		// keep the body when it is a well-formed API error so callers show the ERR code (task int-cli-review).
+		var probe struct {
+			Result string `json:"result"`
+			Code   string `json:"code"`
+		}
+		if json.Unmarshal(data, &probe) == nil && probe.Result == "ERROR" && probe.Code != "" {
+			return data, nil
+		}
 		return nil, fmt.Errorf("unexpected HTTP status %d from %s", resp.StatusCode, endpoint)
 	}
 
@@ -262,6 +271,117 @@ func SendSMS(username, password, sender, numbers, message string, test bool) (*S
 	}
 	if resp.Result == "ERROR" {
 		return nil, apiError(resp.Code, resp.Description)
+	}
+	return &resp, nil
+}
+
+// 2026-11-16 01:34 +03: ValidateResponse is returned by POST /API/validate/: three buckets OK, ER (format error), NR (no route) (task int-cli-review).
+type ValidateResponse struct {
+	Result string `json:"result"`
+	Mobile struct {
+		OK []string `json:"OK"`
+		ER []string `json:"ER"`
+		NR []string `json:"NR"`
+	} `json:"mobile"`
+	APIError
+}
+
+// 2026-11-16 01:34 +03: StatusResponse is returned by POST /API/status/ (task int-cli-review).
+type StatusResponse struct {
+	Result      string `json:"result"`
+	Status      string `json:"status"`
+	Description string `json:"description"`
+	Code        string `json:"code,omitempty"`
+}
+
+// 2026-11-16 01:34 +03: DLRReport is one per-number delivery report entry (task int-cli-review).
+type DLRReport struct {
+	Number string `json:"Number"`
+	Status string `json:"Status"`
+}
+
+// 2026-11-16 01:34 +03: DLRResponse is returned by POST /API/dlr/ (task int-cli-review).
+type DLRResponse struct {
+	Result string      `json:"result"`
+	Report []DLRReport `json:"report"`
+	APIError
+}
+
+// 2026-11-16 01:34 +03: ValidateNumbers calls POST /API/validate/ (max 2500 comma-separated numbers) (task int-cli-review).
+func ValidateNumbers(username, password, numbers string) (*ValidateResponse, error) {
+	body := struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+		Mobile   string `json:"mobile"`
+	}{username, password, numbers}
+
+	data, err := post("validate/", body)
+	if err != nil {
+		return nil, err
+	}
+	var resp ValidateResponse
+	if err := json.Unmarshal(data, &resp); err != nil {
+		return nil, fmt.Errorf("failed to parse validate response: %w", err)
+	}
+	if resp.Result == "ERROR" {
+		return nil, apiError(resp.Code, resp.Description)
+	}
+	// Always render empty buckets as [] in --json output.
+	if resp.Mobile.OK == nil {
+		resp.Mobile.OK = []string{}
+	}
+	if resp.Mobile.ER == nil {
+		resp.Mobile.ER = []string{}
+	}
+	if resp.Mobile.NR == nil {
+		resp.Mobile.NR = []string{}
+	}
+	return &resp, nil
+}
+
+// 2026-11-16 01:34 +03: GetStatus calls POST /API/status/ for the queue status of a sent message (task int-cli-review).
+func GetStatus(username, password, msgID string) (*StatusResponse, error) {
+	body := struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+		MsgID    string `json:"msgid"`
+	}{username, password, msgID}
+
+	data, err := post("status/", body)
+	if err != nil {
+		return nil, err
+	}
+	var resp StatusResponse
+	if err := json.Unmarshal(data, &resp); err != nil {
+		return nil, fmt.Errorf("failed to parse status response: %w", err)
+	}
+	if resp.Result == "ERROR" {
+		return nil, apiError(resp.Code, resp.Description)
+	}
+	return &resp, nil
+}
+
+// 2026-11-16 01:34 +03: GetDLR calls POST /API/dlr/ for per-number delivery reports (task int-cli-review).
+func GetDLR(username, password, msgID string) (*DLRResponse, error) {
+	body := struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+		MsgID    string `json:"msgid"`
+	}{username, password, msgID}
+
+	data, err := post("dlr/", body)
+	if err != nil {
+		return nil, err
+	}
+	var resp DLRResponse
+	if err := json.Unmarshal(data, &resp); err != nil {
+		return nil, fmt.Errorf("failed to parse dlr response: %w", err)
+	}
+	if resp.Result == "ERROR" {
+		return nil, apiError(resp.Code, resp.Description)
+	}
+	if resp.Report == nil {
+		resp.Report = []DLRReport{}
 	}
 	return &resp, nil
 }

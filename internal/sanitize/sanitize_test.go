@@ -215,3 +215,24 @@ func TestSanitizeConfigValue(t *testing.T) {
 		}
 	}
 }
+
+// 2026-11-16 01:34 +03: SanitizeMsgID tests (task int-cli-review).
+func TestSanitizeMsgID(t *testing.T) {
+	tests := []struct {
+		in      string
+		want    string
+		wantErr bool
+	}{
+		{"f4c841adee210f31307633ceaebff2ec", "f4c841adee210f31307633ceaebff2ec", false},
+		{"  abc123 ", "abc123", false},
+		{"", "", true},
+		{"abc-123", "", true},
+		{"f4c841adee210f31307633ceaebff2ecX", "", true},
+	}
+	for _, tt := range tests {
+		got, err := SanitizeMsgID(tt.in)
+		if (err != nil) != tt.wantErr || got != tt.want {
+			t.Errorf("SanitizeMsgID(%q) = %q, %v", tt.in, got, err)
+		}
+	}
+}

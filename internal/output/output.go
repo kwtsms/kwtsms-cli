@@ -144,3 +144,34 @@ func PrintTestModeNote() {
 func PrintError(err error) {
 	fmt.Fprintf(os.Stderr, "Error: %s\n", err.Error())
 }
+
+// 2026-11-16 01:34 +03: PrintValidate prints the three validate buckets, one number per line under each heading (task int-cli-review).
+func PrintValidate(resp *api.ValidateResponse) {
+	buckets := []struct {
+		title string
+		nums  []string
+	}{
+		{"Valid (OK)", resp.Mobile.OK},
+		{"Invalid format (ER)", resp.Mobile.ER},
+		{"No route (NR)", resp.Mobile.NR},
+	}
+	for _, b := range buckets {
+		fmt.Printf("%s: %d\n", b.title, len(b.nums))
+		for _, n := range b.nums {
+			fmt.Printf("  %s\n", n)
+		}
+	}
+}
+
+// 2026-11-16 01:34 +03: PrintStatus prints the queue status of a message (task int-cli-review).
+func PrintStatus(resp *api.StatusResponse) {
+	fmt.Printf("Status:      %s\n", resp.Status)
+	fmt.Printf("Description: %s\n", resp.Description)
+}
+
+// 2026-11-16 01:34 +03: PrintDLR prints one line per number: number, then status (task int-cli-review).
+func PrintDLR(resp *api.DLRResponse) {
+	for _, r := range resp.Report {
+		fmt.Printf("%s  %s\n", r.Number, r.Status)
+	}
+}
