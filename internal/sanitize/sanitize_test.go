@@ -236,3 +236,20 @@ func TestSanitizeMsgID(t *testing.T) {
 		}
 	}
 }
+
+// 2026-11-16 16:20 +03: SplitPhones keeps good numbers, dedupes, and returns bad tokens raw (job 49).
+func TestSplitPhones(t *testing.T) {
+	n := testNumber(t)
+	cc, a, b := splitKW(n)
+	valid, invalid := SplitPhones(n + ", +" + cc + " " + a + " " + b + ",12345,abc")
+	if len(valid) != 1 || valid[0] != n {
+		t.Fatalf("valid = %v", valid)
+	}
+	if len(invalid) != 2 || invalid[0] != "12345" || invalid[1] != "abc" {
+		t.Fatalf("invalid = %v", invalid)
+	}
+	valid, invalid = SplitPhones(" , ")
+	if len(valid) != 0 || len(invalid) != 0 {
+		t.Fatalf("empty input: %v %v", valid, invalid)
+	}
+}

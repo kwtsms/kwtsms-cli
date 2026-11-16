@@ -288,6 +288,31 @@ func SanitizePhone(input string) (string, error) {
 // applies SanitizePhone to each token, deduplicates, and returns the cleaned list.
 // Spaces within a token are treated as part of the number and stripped by SanitizePhone.
 // Returns an error if any token is invalid or the resulting list is empty.
+// 2026-11-16 16:20 +03: SplitPhones cleans each number and returns the good ones and the raw tokens that failed,
+// so `validate` can report bad input in the ER bucket instead of failing the whole batch (job 49, CLI 1.1.0 QA).
+func SplitPhones(input string) (valid []string, invalid []string) {
+	tokens := strings.FieldsFunc(input, func(r rune) bool {
+		return r == ',' || r == '\n' || r == '\t' || r == '\r'
+	})
+	seen := make(map[string]bool)
+	for _, token := range tokens {
+		token = strings.TrimSpace(token)
+		if token == "" {
+			continue
+		}
+		cleaned, err := SanitizePhone(token)
+		if err != nil {
+			invalid = append(invalid, token)
+			continue
+		}
+		if !seen[cleaned] {
+			seen[cleaned] = true
+			valid = append(valid, cleaned)
+		}
+	}
+	return valid, invalid
+}
+
 func SanitizePhones(input string) ([]string, error) {
 	// Split on commas and newlines only; spaces are stripped per-number by SanitizePhone
 	tokens := strings.FieldsFunc(input, func(r rune) bool {

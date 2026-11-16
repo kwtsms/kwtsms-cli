@@ -32,17 +32,25 @@ Numbers land in three buckets:
 
 Up to 2500 numbers per call. Example: kwtsms-cli validate -t 965XXXXXXXX,965YYYYYYYY`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		phones, err := sanitize.SanitizePhones(validateTo)
-		if err != nil {
-			return fmt.Errorf("invalid phone number(s): %w", err)
+		// 2026-11-16 16:20 +03: numbers that fail local cleaning go to the ER bucket; only the rest go to the API.
+		// Before, one bad number failed the whole command (job 49, CLI 1.1.0 QA).
+		phones, invalid := sanitize.SplitPhones(validateTo)
+		if len(phones)+len(invalid) == 0 {
+			return fmt.Errorf("no phone numbers provided")
 		}
 		if len(phones) > maxValidateNumbers {
 			return fmt.Errorf("too many numbers: %d (max %d per call)", len(phones), maxValidateNumbers)
 		}
-		resp, err := api.ValidateNumbers(Username, Password, strings.Join(phones, ","))
-		if err != nil {
-			return err
+		resp := &api.ValidateResponse{Result: "OK"}
+		resp.Mobile.OK, resp.Mobile.NR = []string{}, []string{} // --json prints [] not null when no API call is made
+		if len(phones) > 0 {
+			var err error
+			resp, err = api.ValidateNumbers(Username, Password, strings.Join(phones, ","))
+			if err != nil {
+				return err
+			}
 		}
+		resp.Mobile.ER = append(resp.Mobile.ER, invalid...)
 		if jsonFlag {
 			return output.PrintJSON(resp)
 		}
