@@ -18,7 +18,7 @@ Designed for developers, DevOps engineers, and AI agents that need to integrate 
 ## Use Cases
 
 - **SMS automation:** Send notifications, alerts, and reminders from shell scripts and cron jobs.
-- **AI agent integration:** Provide AI agents and LLM-powered tools with the ability to send SMS messages as a tool call.
+- **AI agent integration:** Give AI coding agents that run in a terminal a safe way to send SMS: the login is stored once by `kwtsms-cli setup`, never typed into commands. For AI chat apps use the [kwtSMS MCP server](https://github.com/kwtsms/kwtsms-mcp) instead.
 - **CI/CD pipelines:** Trigger SMS alerts on deployment, test failure, or system events.
 - **OTP delivery:** Send one-time passwords from any script or backend service.
 - **Balance monitoring:** Check remaining credits as part of a scheduled health check.

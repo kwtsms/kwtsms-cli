@@ -7,6 +7,10 @@ description: Send SMS and check balance, Sender IDs, coverage, number validity, 
 
 Use this skill when you need to send SMS messages, check account balance, list sender IDs, or check coverage via the kwtSMS gateway using the `kwtsms-cli` binary.
 
+If the kwtSMS MCP tools are available in this session, use them instead (test mode by default, send limits). Use this
+CLI for shells, scripts and cron. Never put the API password in a command: the user runs `kwtsms-cli setup` once.
+Never send with raw `curl`.
+
 ---
 
 ## Step 1: Install the Binary
@@ -52,22 +56,17 @@ sudo mv kwtsms-cli /usr/local/bin/
 
 ## Step 2: Configure Credentials
 
-**Option A: Environment variables (recommended for agents):**
-```bash
-export KWTSMS_USERNAME=your_api_username
-export KWTSMS_PASSWORD=your_api_password
-export KWTSMS_SENDER=YOUR-SENDER
-```
-
-**Option B: Interactive setup (for human-assisted configuration):**
+**Option A: Setup once, by the user (recommended):** ask the user to run this in their own terminal. It stores the
+login in the CLI config file, so no command you run contains the password:
 ```bash
 kwtsms-cli setup
 ```
 
-**Option C: Inline flags (one-off calls):**
-```bash
-kwtsms-cli balance --username myuser --password mypass
-```
+**Option B: CI or a server:** the user puts `KWTSMS_USERNAME`, `KWTSMS_PASSWORD` and `KWTSMS_SENDER` in the job's
+secret store or environment. Read them; never type their values into a command or this conversation.
+
+Do not use the `--username` / `--password` flags from an agent: the password ends up in the shell history and the
+transcript. If no login is configured, stop and ask the user to run `kwtsms-cli setup`.
 
 Credentials are resolved in this order (highest wins): `--username/--password` flags > `KWTSMS_*` env vars > config file.
 
