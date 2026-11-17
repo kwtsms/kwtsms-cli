@@ -1,4 +1,9 @@
-# kwtsms-cli
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme-header-dark.png">
+  <img alt="kwtSMS: SMS gateway for Kuwait" src=".github/assets/readme-header-light.png">
+</picture>
+
+# kwtSMS CLI
 
 [![Release](https://img.shields.io/github/v/release/kwtsms/kwtsms-cli)](https://github.com/kwtsms/kwtsms-cli/releases/latest)
 [![Build](https://img.shields.io/github/actions/workflow/status/kwtsms/kwtsms-cli/release.yml?label=build)](https://github.com/kwtsms/kwtsms-cli/actions)
@@ -7,13 +12,17 @@
 [![License](https://img.shields.io/github/license/kwtsms/kwtsms-cli)](https://github.com/kwtsms/kwtsms-cli/blob/main/LICENSE)
 [![Platform](https://img.shields.io/badge/platform-linux%20%7C%20macos%20%7C%20windows-blue)](https://github.com/kwtsms/kwtsms-cli/releases/latest)
 
-A command-line interface for the [kwtSMS](https://www.kwtsms.com) SMS gateway. Send SMS messages, check your account balance, and manage sender IDs, all from your terminal or as part of an automated workflow.
+Send SMS, check your balance, validate numbers and list Sender IDs from your terminal, scripts and CI pipelines, through kwtSMS, the Kuwaiti SMS gateway. Free, one binary, no runtime. The command is `kwtsms-cli`.
+
+kwtSMS delivers to Zain, Ooredoo, stc and Virgin in Kuwait and to more than 200 countries, with your own Sender ID, free API testing and credits that do not expire.
 
 Designed for developers, DevOps engineers, and AI agents that need to integrate SMS delivery into scripts, pipelines, and automation without writing custom code.
 
-## About kwtSMS
+## Requirements
 
-[kwtSMS](https://www.kwtsms.com) is a Kuwait-based SMS gateway trusted by businesses to deliver messages across Kuwait (Zain, Ooredoo, STC, Virgin) and internationally. It offers private Sender IDs, free API testing, non-expiring credits, and competitive flat-rate pricing. Open a free account in under one minute at [kwtsms.com/signup](https://www.kwtsms.com/signup/), no paperwork or payment required.
+A kwtSMS account (free test account, no papers): https://www.kwtsms.com/cportal/signup/
+
+Test mode: `send --test` queues the message and does not deliver it. Its credits are held until you delete it from the Sending Queue.
 
 ## Use Cases
 
@@ -185,6 +194,15 @@ kwtsms-cli dlr f4c841adee210f31307633ceaebff2ec --json
 
 ```
 965XXXXXXXX  Received by recipient
+```
+
+### `kwtsms-cli version-check`
+
+Compare the installed version with the latest GitHub release. No credentials needed.
+
+```bash
+kwtsms-cli version-check
+kwtsms-cli version-check --json
 ```
 
 ### `kwtsms-cli send`
@@ -367,7 +385,27 @@ fi
 - **`go install` one-liner:** `go install github.com/kwtsms/kwtsms-cli@latest` for Go developers.
 - **File input for bulk send:** `--file numbers.txt` to load recipients from a file.
 
+## Arabic
+
+Arabic message text is sent as is, and Arabic-Indic digits in phone numbers are converted to Latin digits.
+
+```bash
+kwtsms-cli send --to 965XXXXXXXX --message "مرحبا، رمز التحقق 4821" --test
+```
+
 ## FAQ
+
+**Which username do I use?**
+
+The API username and password of your kwtSMS account, not your mobile number. Run `kwtsms-cli setup` once to store them.
+
+**Why do test messages not arrive?**
+
+`send --test` queues the message without delivering it. Its credits are held until you delete it from the Sending Queue. Leave out `--test` to send for real.
+
+**What is a Sender ID?**
+
+The name shown as the sender on the phone. See the [Sender ID help](https://www.kwtsms.com/sender-id-help.html).
 
 **Can I send to international numbers?**
 
@@ -382,15 +420,20 @@ Rules in short:
 
 Current rules, limits and credits per country: https://www.kwtsms.com/faq/send-international-sms-messages.html
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md).
+
 ## Support
 
-- Dashboard: [www.kwtsms.com/login](https://www.kwtsms.com/login)
-- General support and account questions: [www.kwtsms.com/support.html](https://www.kwtsms.com/support.html)
-- FAQ: [www.kwtsms.com/faq/](https://www.kwtsms.com/faq/)
-- Sender ID help: [www.kwtsms.com/sender-id-help.html](https://www.kwtsms.com/sender-id-help.html)
+Help: https://www.kwtsms.com/support.html | FAQ: https://www.kwtsms.com/faq/ |
+API: [developers](https://www.kwtsms.com/developers.html), [API reference](https://www.kwtsms.com/api-documentation.html) |
+[Issues](https://github.com/kwtsms/kwtsms-cli/issues)
 
-For security vulnerability reports, see [SECURITY.md](SECURITY.md).
+## Security
+
+See [SECURITY.md](SECURITY.md).
 
 ## License
 
-MIT
+MIT, (c) kwtSMS (BoxLink Center). See [LICENSE](LICENSE).
